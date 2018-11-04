@@ -1,0 +1,6 @@
+framework module Pods_TechTest {
+  umbrella header "Pods-TechTest-umbrella.h"
+
+  export *
+  module * { export * }
+}
