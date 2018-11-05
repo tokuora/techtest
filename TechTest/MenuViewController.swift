@@ -21,7 +21,7 @@ struct APIData: Codable {
     let Subcategories: Array<APIData>?
 }
 
-class MenuViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MenuViewController: UIViewController {
     
     private let apiUrl = "https://api.tmsandbox.co.nz/v1/Categories/0.json"
     private var apiData: APIData? = nil {
@@ -53,6 +53,7 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
         // Do any additional setup after loading the view, typically from a nib.
         if apiData == nil {
             retrieveTopLevelCategories()
+            self.navigationItem.title = "Select category"
         }
         
         navigationController?.navigationBar.isHidden = false
@@ -75,8 +76,11 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
         }
     }
-    
-    // MARK: TableView
+}
+
+// MARK: TableView
+
+extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return apiData?.Subcategories?.count ?? 0
@@ -87,6 +91,16 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.textLabel?.text = apiData?.Subcategories?[indexPath.row].Name ?? ""
         cell.accessoryType = .disclosureIndicator
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        if let apiData = apiData?.Subcategories?[indexPath.row] {
+            if !apiData.IsLeaf {
+                let vc = MenuViewController(apiData: apiData)
+                navigationController?.pushViewController(vc, animated: true)
+            }
+        }
     }
 }
 
