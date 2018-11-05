@@ -11,13 +11,10 @@ import Alamofire
 import SnapKit
 
 struct APIData: Codable {
-    let CanBeSecondCategory: Bool?
-    let CanHaveSecondCategory: Bool?
-    let AreaOfBusiness: Int?
-    let HasClassifieds: Bool?
     let IsLeaf: Bool
     let Name: String?
     let Path: String?
+    let Number: String?
     let Subcategories: Array<APIData>?
 }
 
@@ -59,6 +56,7 @@ class MenuViewController: UIViewController {
         }
         
         navigationController?.navigationBar.isHidden = false
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonTapped(_:)))
         
         contentTableView.delegate = self
         contentTableView.dataSource = self
@@ -77,6 +75,11 @@ class MenuViewController: UIViewController {
                 self?.apiData = data
             }
         }
+    }
+    
+    @objc private func doneButtonTapped(_ sender: Any) {
+        let vc = ListingsViewController(category: apiData?.Number ?? "root")
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -98,10 +101,13 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if let apiData = apiData?.Subcategories?[indexPath.row] {
+            let vc: UIViewController
             if !apiData.IsLeaf {
-                let vc = MenuViewController(apiData: apiData)
-                navigationController?.pushViewController(vc, animated: true)
+                vc = MenuViewController(apiData: apiData)
+            } else {
+                vc = ListingsViewController(category: apiData.Number)
             }
+            navigationController?.pushViewController(vc, animated: true)
         }
     }
 }
