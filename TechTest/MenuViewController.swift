@@ -54,6 +54,8 @@ class MenuViewController: UIViewController {
         if apiData == nil {
             retrieveTopLevelCategories()
             self.navigationItem.title = "Select category"
+        } else {
+            self.navigationItem.title = apiData?.Name
         }
         
         navigationController?.navigationBar.isHidden = false
