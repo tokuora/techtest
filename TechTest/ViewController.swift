@@ -9,22 +9,43 @@
 import UIKit
 import Alamofire
 
-class ViewController: UIViewController {
+struct APIData: Codable {
+    let CanBeSecondCategory: Bool?
+    let CanHaveSecondCategory: Bool?
+    let AreaOfBusiness: Int?
+    let HasClassifieds: Bool?
+    let IsLeaf: Bool
+    let Name: String?
+    let Path: String?
+    let Subcategories: Array<APIData>?
+}
 
+class ViewController: UIViewController {
+    
+    private let apiUrl = "https://api.tmsandbox.co.nz/v1/Categories/0.json"
+    private var categories: [String] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        getData()
+        retrieveTopLevelCategories()
+        
     }
 
-    private func getData() {
-        Alamofire.request("https://api.tmsandbox.co.nz/v1/Categories/0.json").responseJSON { (response) in
-            
-            if let json = response.result.value {
-                print("JSON: \(json)")
+    private func retrieveTopLevelCategories() {
+        Alamofire.request(apiUrl).responseJSON { [weak self] (response) in
+            if let jsonData = response.data {
+                let decoder = JSONDecoder()
+                let topLevel = try! decoder.decode(APIData.self, from: jsonData)
+                if let tls = topLevel.Subcategories {
+                    for category in tls {
+                        if let name = category.Name {
+                            self?.categories.append(name)
+                        }
+                    }
+                }
             }
         }
     }
-
 }
 
