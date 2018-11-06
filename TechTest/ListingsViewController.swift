@@ -9,6 +9,10 @@
 import UIKit
 import Alamofire
 
+struct ListingsList: Codable {
+    let List: [Listing]
+}
+
 struct Listing: Codable {
     let ListingId: Int
     let Title: String?
@@ -54,6 +58,7 @@ class ListingsViewController: UIViewController {
         
         contentTableView.delegate = self
         contentTableView.dataSource = self
+        contentTableView.register(ListingTableViewCell.self, forCellReuseIdentifier: "ListingCell")
         
         view.addSubview(contentTableView)
         contentTableView.snp.makeConstraints { (make) in
@@ -72,8 +77,8 @@ class ListingsViewController: UIViewController {
         Alamofire.request(searchEndpoint, method: .get, parameters: parameters, headers: headers).responseJSON { [weak self](response) in
             if let jsonData = response.data {
                 let decoder = JSONDecoder()
-//                let data = try! decoder.decode([Listing].self, from: jsonData)
-                print(response.result.value)
+                let data = try! decoder.decode(ListingsList.self, from: jsonData)
+                self?.listings = data.List
             }
         }
     }
@@ -81,10 +86,16 @@ class ListingsViewController: UIViewController {
 
 extension ListingsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return listings.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ListingCell", for: indexPath) as! ListingTableViewCell
+        cell.updateFromListing(listings[indexPath.row])
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
     }
 }

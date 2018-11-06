@@ -14,6 +14,7 @@
 		C923FF00218F892200CE7B5D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C923FEFF218F892200CE7B5D /* Assets.xcassets */; };
 		C923FF03218F892200CE7B5D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C923FF01218F892200CE7B5D /* LaunchScreen.storyboard */; };
 		C923FF0B218FE37B00CE7B5D /* ListingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C923FF0A218FE37B00CE7B5D /* ListingsViewController.swift */; };
+		C923FF102191219C00CE7B5D /* ListingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C923FF0F2191219C00CE7B5D /* ListingTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		C923FF02218F892200CE7B5D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C923FF04218F892200CE7B5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C923FF0A218FE37B00CE7B5D /* ListingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingsViewController.swift; sourceTree = "<group>"; };
+		C923FF0F2191219C00CE7B5D /* ListingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +89,7 @@
 				C923FF01218F892200CE7B5D /* LaunchScreen.storyboard */,
 				C923FF04218F892200CE7B5D /* Info.plist */,
 				C923FF0A218FE37B00CE7B5D /* ListingsViewController.swift */,
+				C923FF0F2191219C00CE7B5D /* ListingTableViewCell.swift */,
 			);
 			path = TechTest;
 			sourceTree = "<group>";
@@ -215,6 +218,7 @@
 			files = (
 				C923FEFB218F892100CE7B5D /* MenuViewController.swift in Sources */,
 				C923FEF9218F892100CE7B5D /* AppDelegate.swift in Sources */,
+				C923FF102191219C00CE7B5D /* ListingTableViewCell.swift in Sources */,
 				C923FF0B218FE37B00CE7B5D /* ListingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
