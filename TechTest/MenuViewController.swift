@@ -13,7 +13,6 @@ import SnapKit
 struct APIData: Codable {
     let IsLeaf: Bool
     let Name: String?
-    let Path: String?
     let Number: String?
     let Subcategories: Array<APIData>?
 }
@@ -113,7 +112,7 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
                 vc = MenuViewController(apiData: apiData)
                 navigationController?.pushViewController(vc, animated: true)
             } else {
-                vc = ListingsViewController(category: (apiData.Name, apiData.Number) as? Category)
+                vc = ListingsViewController(category: (apiData.Name, apiData.Number) as Category)
                 splitViewController?.showDetailViewController(UINavigationController(rootViewController: vc), sender: self)
             }
         }

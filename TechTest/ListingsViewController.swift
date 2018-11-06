@@ -18,10 +18,9 @@ struct Listing: Codable {
     let Title: String?
     let PictureHref: String?
     let PriceDisplay: String?
-    let Region: String?
 }
 
-typealias Category = (name: String?, number: String)
+typealias Category = (name: String?, number: String?)
 
 class ListingsViewController: UIViewController {
     
