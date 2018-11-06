@@ -60,13 +60,13 @@ class ListingsViewController: UIViewController {
         
         contentTableView.delegate = self
         contentTableView.dataSource = self
-        contentTableView.register(ListingTableViewCell.self, forCellReuseIdentifier: "ListingCell")
+        contentTableView.register(ListingTableViewCell.self, forCellReuseIdentifier: ListingTableViewCell.reuseIdentifier)
         
         view.addSubview(contentTableView)
         contentTableView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
-        navigationItem.title = category?.name
+        navigationItem.title = category?.number == "" ? "All categories" : category?.name
     }
     
     private func fetchListings() {
@@ -93,7 +93,7 @@ extension ListingsViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ListingCell", for: indexPath) as! ListingTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: ListingTableViewCell.reuseIdentifier, for: indexPath) as! ListingTableViewCell
         cell.updateFromListing(listings[indexPath.row])
         return cell
     }

@@ -10,6 +10,8 @@ import UIKit
 
 class ListingTableViewCell: UITableViewCell {
     
+    static let reuseIdentifier = "ListingCell"
+    
     private var listingImage = UIImageView()
     private var titleLabel = UILabel()
     private var priceLabel = UILabel()
