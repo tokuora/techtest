@@ -15,12 +15,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        
         let viewController = MenuViewController()
         let navigationController = UINavigationController(rootViewController: viewController)
         
+        let splitVC = UISplitViewController()
+        splitVC.viewControllers = [navigationController, ListingsViewController()]
+        splitVC.preferredDisplayMode = .allVisible
+        
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.backgroundColor = .white
-        self.window?.rootViewController = navigationController
+        self.window?.rootViewController = splitVC
         self.window?.makeKeyAndVisible()
         return true
     }

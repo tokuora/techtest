@@ -21,14 +21,16 @@ struct Listing: Codable {
     let Region: String?
 }
 
+typealias Category = (name: String?, number: String)
+
 class ListingsViewController: UIViewController {
     
     // API stuff
     private let consumerKey = "A1AC63F0332A131A78FAC304D007E7D1"
     private let secretKey = "EC7F18B17A062962C6930A8AE88B16C7"
     private let searchEndpoint = "https://api.tmsandbox.co.nz/v1/Search/General.json"
-    
-    var category: String? = nil
+
+    var category: Category? = nil
     
     private var listings: [Listing] = [] {
         didSet {
@@ -39,7 +41,7 @@ class ListingsViewController: UIViewController {
     // UI elements
     private let contentTableView = UITableView()
     
-    convenience init(category: String?) {
+    convenience init(category: Category?) {
         self.init(nibName: nil, bundle: nil)
         self.category = category
         fetchListings()
@@ -64,6 +66,7 @@ class ListingsViewController: UIViewController {
         contentTableView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
+        navigationItem.title = category?.name
     }
     
     private func fetchListings() {
@@ -71,7 +74,7 @@ class ListingsViewController: UIViewController {
             "Authorization": "OAuth oauth_consumer_key=\"\(consumerKey)\", oauth_signature_method=\"PLAINTEXT\", oauth_signature=\"\(secretKey)&\""
         ]
         let parameters: Parameters = [
-            "category": category ?? "",
+            "category": category?.number ?? "",
             "rows": 20
         ]
         Alamofire.request(searchEndpoint, method: .get, parameters: parameters, headers: headers).responseJSON { [weak self](response) in

@@ -13,7 +13,7 @@ class ListingTableViewCell: UITableViewCell {
     private var listingImage = UIImageView()
     private var titleLabel = UILabel()
     private var priceLabel = UILabel()
-    private var regionLabel = UILabel()
+    private var idLabel = UILabel()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -31,15 +31,15 @@ class ListingTableViewCell: UITableViewCell {
         }
         
         contentView.addSubview(titleLabel)
-        titleLabel.numberOfLines = 0
+        titleLabel.numberOfLines = 2
         titleLabel.snp.makeConstraints { (make) in
             make.left.equalTo(listingImage.snp.right).offset(10)
             make.top.equalTo(self).offset(10)
-            make.right.lessThanOrEqualTo(priceLabel.snp.left).offset(10)
+            make.right.lessThanOrEqualTo(priceLabel.snp.left).offset(-10)
         }
         
-        contentView.addSubview(regionLabel)
-        regionLabel.snp.makeConstraints { (make) in
+        contentView.addSubview(idLabel)
+        idLabel.snp.makeConstraints { (make) in
             make.top.equalTo(titleLabel.snp.bottom).offset(10)
             make.left.equalTo(titleLabel.snp.left)
         }
@@ -61,9 +61,7 @@ class ListingTableViewCell: UITableViewCell {
         if let title = listing.Title {
             titleLabel.text = title
         }
-        if let region = listing.Region {
-            regionLabel.text = "Region: \(region)"
-        }
+        idLabel.text = "Listing ID: \(listing.ListingId)"
         if let price = listing.PriceDisplay {
             priceLabel.text = price
         }

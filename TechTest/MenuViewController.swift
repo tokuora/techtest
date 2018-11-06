@@ -78,8 +78,8 @@ class MenuViewController: UIViewController {
     }
     
     @objc private func doneButtonTapped(_ sender: Any) {
-        let vc = ListingsViewController(category: apiData?.Number ?? "root")
-        navigationController?.pushViewController(vc, animated: true)
+        let vc = ListingsViewController(category: (apiData?.Name, apiData?.Number ?? "root") as Category)
+        splitViewController?.showDetailViewController(vc, sender: self)
     }
 }
 
@@ -104,10 +104,11 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
             let vc: UIViewController
             if !apiData.IsLeaf {
                 vc = MenuViewController(apiData: apiData)
+                navigationController?.pushViewController(vc, animated: true)
             } else {
-                vc = ListingsViewController(category: apiData.Number)
+                vc = ListingsViewController(category: (apiData.Name, apiData.Number) as? Category)
+                splitViewController?.showDetailViewController(vc, sender: self)
             }
-            navigationController?.pushViewController(vc, animated: true)
         }
     }
 }
