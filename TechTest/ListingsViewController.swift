@@ -61,6 +61,7 @@ class ListingsViewController: UIViewController {
         contentTableView.delegate = self
         contentTableView.dataSource = self
         contentTableView.register(ListingTableViewCell.self, forCellReuseIdentifier: ListingTableViewCell.reuseIdentifier)
+        contentTableView.separatorStyle = .none
         
         view.addSubview(contentTableView)
         contentTableView.snp.makeConstraints { (make) in
@@ -100,5 +101,9 @@ extension ListingsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

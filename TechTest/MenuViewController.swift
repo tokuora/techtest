@@ -78,8 +78,8 @@ class MenuViewController: UIViewController, UISplitViewControllerDelegate {
     }
     
     @objc private func doneButtonTapped(_ sender: Any) {
-        let vc = ListingsViewController(category: (apiData?.Name, apiData?.Number ?? "root") as Category)
-        splitViewController?.showDetailViewController(vc, sender: self)
+        let vc = ListingsViewController(category: (apiData?.Name, apiData?.Number ?? "") as Category)
+        splitViewController?.showDetailViewController(UINavigationController(rootViewController: vc), sender: self)
     }
     
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
@@ -111,7 +111,7 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
                 navigationController?.pushViewController(vc, animated: true)
             } else {
                 vc = ListingsViewController(category: (apiData.Name, apiData.Number) as? Category)
-                splitViewController?.showDetailViewController(vc, sender: self)
+                splitViewController?.showDetailViewController(UINavigationController(rootViewController: vc), sender: self)
             }
         }
     }
