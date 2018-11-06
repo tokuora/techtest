@@ -18,7 +18,7 @@ struct APIData: Codable {
     let Subcategories: Array<APIData>?
 }
 
-class MenuViewController: UIViewController {
+class MenuViewController: UIViewController, UISplitViewControllerDelegate {
     
     private let apiUrl = "https://api.tmsandbox.co.nz/v1/Categories/0.json"
     private var apiData: APIData? = nil {
@@ -80,6 +80,10 @@ class MenuViewController: UIViewController {
     @objc private func doneButtonTapped(_ sender: Any) {
         let vc = ListingsViewController(category: (apiData?.Name, apiData?.Number ?? "root") as Category)
         splitViewController?.showDetailViewController(vc, sender: self)
+    }
+    
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
+        return true
     }
 }
 

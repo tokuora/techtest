@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let splitVC = UISplitViewController()
         splitVC.viewControllers = [navigationController, ListingsViewController()]
         splitVC.preferredDisplayMode = .allVisible
+        splitVC.delegate = viewController
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.backgroundColor = .white
