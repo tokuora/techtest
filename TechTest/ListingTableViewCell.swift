@@ -45,6 +45,14 @@ class ListingTableViewCell: UITableViewCell {
             make.top.equalTo(titleLabel.snp.bottom).offset(10)
             make.left.equalTo(titleLabel.snp.left)
         }
+        
+        let bottomSeparatorLine = UIView()
+        bottomSeparatorLine.backgroundColor = .gray
+        contentView.addSubview(bottomSeparatorLine)
+        bottomSeparatorLine.snp.makeConstraints { (make) in
+            make.left.right.bottom.equalTo(self)
+            make.height.equalTo(0.5)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
