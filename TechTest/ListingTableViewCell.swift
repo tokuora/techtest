@@ -66,7 +66,6 @@ class ListingTableViewCell: UITableViewCell {
             } catch let error {
                 print(error)
             }
-            
         }
         if let title = listing.Title {
             titleLabel.text = title
